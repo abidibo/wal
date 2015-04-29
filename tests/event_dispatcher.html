@@ -12,7 +12,7 @@
 
             (function() {
                 console.log(require);
-                require(['../event_dispatcher'], function(EventDispatcher) {
+                require(['../wal/event_dispatcher'], function(EventDispatcher) {
                     var check = 0;
                     var ED = new EventDispatcher();
                     ajsut.assert(ED instanceof EventDispatcher, 'EventDispatcher successfully created');
