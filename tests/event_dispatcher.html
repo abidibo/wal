@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tests</title>
+        <meta charset="utf8" />
+        <script type="text/javascript" src="ajsut/ajsut.js"></script>
+        <script type="text/javascript" src="../require.js"></script>
+        <link type="text/css" rel="stylesheet" href="ajsut/style/ajsut.css" />
+    </head>
+    <body>
+        <script>
+
+            (function() {
+                console.log(require);
+                require(['../event_dispatcher'], function(EventDispatcher) {
+                    var check = 0;
+                    var ED = new EventDispatcher();
+                    ajsut.assert(ED instanceof EventDispatcher, 'EventDispatcher successfully created');
+
+                    var listener = {
+                        onclick: function() {
+                            check += 1;
+                            ajsut.assert(this === window , 'the context was correctly passed');
+                        }
+                    };
+                    ED.register('click', window, listener.onclick);
+                    var emitter = {
+                        emit: function() {
+                            ED.emit('click');
+                        }
+                    };
+
+                    emitter.emit();
+                    ajsut.assert(check === 1 , 'the listener was called');
+                    ED.unregister('click', listener.onclick);
+                    ajsut.assert(check === 1 , 'the listener was unregistered');
+
+                })
+            })()
+
+        </script>
+    </body>
+</html>
