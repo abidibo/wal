@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tests</title>
+        <meta charset="utf8" />
+        <script type="text/javascript" src="ajsut/ajsut.js"></script>
+        <script type="text/javascript" src="../require.js"></script>
+        <link type="text/css" rel="stylesheet" href="ajsut/style/ajsut.css" />
+    </head>
+    <body>
+        <script>
+
+            (function() {
+                require(['../wal/locale'], function(Locale) {
+                    var dict = {
+                        'it': {
+                            'msg': 'messaggio',
+                            'end': 'fine'
+                        },
+                        'en': {
+                            'msg': 'message',
+                        }
+                    };
+                    var L = new Locale(dict, 'it');
+
+                    ajsut.assert(L instanceof Locale, 'Locale object successfully created');
+
+                    ajsut.assert(L.get('msg') === 'messaggio' , 'italian localization ok');
+                    L.set('en');
+                    ajsut.assert(L.get('msg') === 'message' , 'english localization ok, lng changed correctly');
+                    ajsut.assert(L.get('end') === 'end' , 'Fallback when non existing key is working');
+
+                })
+            })()
+
+        </script>
+    </body>
+</html>
