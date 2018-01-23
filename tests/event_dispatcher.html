@@ -32,6 +32,7 @@
                     emitter.emit();
                     ajsut.assert(check === 1 , 'the listener was called');
                     ED.unregister('click', listener.onclick);
+                    emitter.emit();
                     ajsut.assert(check === 1 , 'the listener was unregistered');
 
                 })
